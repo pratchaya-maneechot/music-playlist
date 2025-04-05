@@ -1,0 +1,6 @@
+type Query {
+  profile: User
+  playlist(id: ID!): Playlist
+  playlists(userId: ID!): [Playlist!]!
+  searchSongs(q: String!): [Song!]!
+}

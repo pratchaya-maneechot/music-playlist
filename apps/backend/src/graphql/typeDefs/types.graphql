@@ -1,0 +1,28 @@
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  createdAt: String!
+  updatedAt: String!
+  playlists: [Playlist!]!
+}
+
+type Playlist {
+  id: ID!
+  name: String!
+  userId: ID!
+  user: User!
+  songs: [Song!]
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Song {
+  id: ID!
+  title: String!
+  artist: String!
+  album: String!
+  duration: String!
+  createdAt: String!
+  updatedAt: String!
+}
