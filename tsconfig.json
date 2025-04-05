@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./apps/music-playlist"
+    },
+    {
+      "path": "./apps/backend"
     }
   ]
 }

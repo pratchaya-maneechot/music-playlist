@@ -44,3 +44,12 @@ Thumbs.db
 # Next.js
 .next
 out
+
+test-output
+
+generated.ts
+generated
+
+.env
+.env.*
+!.env.sample
