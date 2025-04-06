@@ -10,7 +10,7 @@ export async function createContext(
   container: Container
 ): Promise<IAppContext> {
   const identity: IAuthentication = {
-    id: MOCKs.profile.id,
+    id: +MOCKs.profile.id,
   };
   return {
     logger: req.logger,
