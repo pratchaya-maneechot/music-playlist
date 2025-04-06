@@ -3,6 +3,6 @@ type Mutation {
   updatePlaylist(id: ID!, name: String): Playlist!
   deletePlaylist(id: ID!): Boolean!
 
-  addSongToPlaylist(playlistId: ID!, songId: ID!): Boolean!
+  addSongToPlaylist(playlistId: ID!, referenceId: ID!): Boolean!
   removeSongFromPlaylist(playlistId: ID!, songId: ID!): Boolean!
 }

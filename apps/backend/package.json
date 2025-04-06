@@ -73,7 +73,7 @@
       "code-gen": {
         "executor": "@music-playlist/code-generator:server",
         "options": {
-          "schemaPath": "apps/backend/src/graphql/schema.ts",
+          "schemaPath": "apps/backend/src/graphql/typeDefs",
           "generatedPath": "apps/backend/src/graphql/generated.ts"
         }
       }

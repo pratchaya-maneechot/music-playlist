@@ -5,10 +5,11 @@ import {
 } from '@apollo/server/plugin/disabled';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import http from 'http';
-import { resolvers, typeDefs } from './schema';
 import { IAppContext } from './types';
 import { ApolloLoggerPlugin } from '../utils/graphql-logger';
 import { logger } from '../utils/logger';
+import { resolvers } from './resolvers';
+import { typeDefs } from './typeDefs';
 
 export async function graphqlServer(
   httpServer: http.Server<

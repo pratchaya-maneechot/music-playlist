@@ -34,7 +34,7 @@ const restaurantResolver: Resolvers<IAppContext> = {
     addSongToPlaylist: async (_args, params, ctx) => {
       await ctx.cmdbus.send(
         new cmdDefs.AddSongToPlaylistCommand({
-          songId: +params.songId,
+          referenceId: +params.referenceId,
           playlistId: +params.playlistId,
         })
       );

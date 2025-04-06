@@ -5,4 +5,5 @@ export const TYPES = {
   QueryHandler: Symbol('QueryHandler'),
   PlaylistRepository: Symbol('PlaylistRepository'),
   SongRepository: Symbol('SongRepository'),
+  SongService: Symbol('SongService'),
 };
