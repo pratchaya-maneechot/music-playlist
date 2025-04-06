@@ -9,6 +9,8 @@ import {
 import { injectable, unmanaged } from 'inversify';
 import { DBClient } from './types';
 import { IRepository } from '../../domain';
+import { InfraException } from '../../exceptions';
+import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export abstract class BaseDrizzleRepository<
@@ -66,7 +68,10 @@ export abstract class BaseDrizzleRepository<
       .where(eq(this.table.id, id));
 
     if (!result) {
-      throw new Error(`Entity with id ${id} not found`);
+      throw new InfraException(
+        StatusCodes.NOT_FOUND,
+        `Entity with id ${id} not found`
+      );
     }
 
     return result as TModel;
@@ -76,7 +81,10 @@ export abstract class BaseDrizzleRepository<
     const [result] = await this.db.insert(this.table).values(input).returning();
 
     if (!result) {
-      throw new Error('Failed to create entity');
+      throw new InfraException(
+        StatusCodes.INTERNAL_SERVER_ERROR,
+        'Failed to create entity'
+      );
     }
 
     return result as TModel;
@@ -93,7 +101,10 @@ export abstract class BaseDrizzleRepository<
       .returning();
 
     if (!result) {
-      throw new Error(`Entity with id ${id} not found`);
+      throw new InfraException(
+        StatusCodes.NOT_FOUND,
+        `Entity with id ${id} not found`
+      );
     }
 
     return result as TModel;
