@@ -25,7 +25,7 @@ export class AddSongToPlaylistCommandHandler
 
   async handle(cmd: AddSongToPlaylistCommand) {
     await this.syncSongData(cmd.input.referenceId);
-    return this._repository.removeSongFromPlaylist(
+    return this._repository.addSongToPlaylist(
       cmd.input.playlistId,
       cmd.input.referenceId
     );
