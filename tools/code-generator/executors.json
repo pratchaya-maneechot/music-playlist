@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "server": {
+      "implementation": "./dist/executors/apollo/server",
+      "schema": "./dist/executors/apollo/schema.json",
+      "description": "server executor"
+    }
+  }
+}

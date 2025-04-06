@@ -69,6 +69,13 @@
         "options": {
           "passWithNoTests": true
         }
+      },
+      "code-gen": {
+        "executor": "@music-playlist/code-generator:server",
+        "options": {
+          "schemaPath": "apps/backend/src/graphql/schema.ts",
+          "generatedPath": "apps/backend/src/graphql/generated.ts"
+        }
       }
     }
   }
