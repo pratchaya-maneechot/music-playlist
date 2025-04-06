@@ -1,6 +1,8 @@
 import { MOCKs } from '../../_mock';
+import { Resolvers } from '../generated';
+import { IAppContext } from '../types';
 
-const profileResolver = {
+const profileResolver: Resolvers<IAppContext> = {
   Query: {
     profile: async () => MOCKs.profile,
   },

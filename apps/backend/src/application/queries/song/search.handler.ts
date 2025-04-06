@@ -10,7 +10,7 @@ export class SearchSongQueryHandler
   qryToHandle = SearchSongQuery.name;
 
   constructor(
-    @inject(TYPES.PlaylistRepository)
+    @inject(TYPES.SongService)
     private readonly _songService: ISongService
   ) {}
 

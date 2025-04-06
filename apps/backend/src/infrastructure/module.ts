@@ -10,7 +10,9 @@ import {
   IQuery,
   ISongRepository,
   IPlaylistRepository,
+  ISongService,
 } from '../domain';
+import { SongService } from './services/SongService';
 
 export const module = new AsyncContainerModule(
   async (bind: interfaces.Bind) => {
@@ -19,6 +21,7 @@ export const module = new AsyncContainerModule(
     bind<ISongRepository>(TYPES.SongRepository)
       .to(SongRepository)
       .inSingletonScope();
+    bind<ISongService>(TYPES.SongService).to(SongService).inSingletonScope();
     bind<IPlaylistRepository>(TYPES.PlaylistRepository)
       .to(PlaylistRepository)
       .inSingletonScope();
