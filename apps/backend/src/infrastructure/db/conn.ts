@@ -3,12 +3,13 @@ import postgres from 'postgres';
 import { envConfig } from '../../config/env';
 
 const env = envConfig();
+export const databaseName = 'music_playlist';
 const option: postgres.Options<Record<string, postgres.PostgresType>> = {
   user: env.DB_USERNAME,
   password: env.DB_PASSWORD,
   host: env.DB_HOST,
   port: env.DB_PORT,
-  database: 'user',
+  database: databaseName,
   ssl: env.SSL_MODE,
 };
 export const migrateConnection = () =>

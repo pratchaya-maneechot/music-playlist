@@ -76,6 +76,29 @@
           "schemaPath": "apps/backend/src/graphql/typeDefs",
           "generatedPath": "apps/backend/src/graphql/generated.ts"
         }
+      },
+      "db:gen:sql": {
+        "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "options": {
+          "command": "drizzle-kit generate --config=./src/infrastructure/db/config.ts",
+          "cwd": "apps/backend"
+        }
+      },
+      "db:migrate": {
+        "executor": "nx:run-commands",
+        "defaultConfiguration": "local",
+        "options": {
+          "command": "drizzle-kit migrate --config=./src/infrastructure/db/config.ts",
+          "cwd": "apps/backend"
+        }
+      },
+      "db:init": {
+        "executor": "nx:run-commands",
+        "options": {
+          "command": "ts-node --project tsconfig.app.json ./src/infrastructure/db/seeds/initial.ts",
+          "cwd": "apps/backend"
+        }
       }
     }
   }

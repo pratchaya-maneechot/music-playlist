@@ -1,8 +1,7 @@
-import { seedConnection } from '../conn';
+import { databaseName, seedConnection } from '../conn';
 
 async function run() {
   try {
-    const databaseName = 'music_playlist';
     const sql = seedConnection();
 
     const exists =
