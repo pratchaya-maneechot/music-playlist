@@ -1,0 +1,24 @@
+fragment UserFragment on User {
+  id
+  username
+  email
+  createdAt
+  updatedAt
+}
+
+fragment PlaylistFragment on Playlist {
+  id
+  name
+  createdAt
+  updatedAt
+}
+
+fragment SongFragment on Song {
+  id
+  title
+  artist
+  album
+  duration
+  createdAt
+  updatedAt
+}

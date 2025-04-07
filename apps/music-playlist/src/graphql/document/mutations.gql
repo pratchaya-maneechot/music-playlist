@@ -1,0 +1,23 @@
+mutation createPlaylist($name: String!, $userId: ID!) {
+  createPlaylist(name: $name, userId: $userId) {
+    ...PlaylistFragment
+  }
+}
+
+mutation updatePlaylist($id: ID!, $name: String) {
+  updatePlaylist(id: $id, name: $name) {
+    ...PlaylistFragment
+  }
+}
+
+mutation deletePlaylist($id: ID!) {
+  deletePlaylist(id: $id)
+}
+
+mutation addSongToPlaylist($playlistId: ID!, $referenceId: ID!) {
+  addSongToPlaylist(playlistId: $playlistId, referenceId: $referenceId)
+}
+
+mutation removeSongFromPlaylist($playlistId: ID!, $songId: ID!) {
+  removeSongFromPlaylist(playlistId: $playlistId, songId: $songId)
+}

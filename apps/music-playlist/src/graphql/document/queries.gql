@@ -1,0 +1,23 @@
+query getProfile {
+  profile {
+    ...UserFragment
+  }
+}
+
+query getPlaylist($id: ID!) {
+  playlist(id: $id) {
+    ...PlaylistFragment
+  }
+}
+
+query getPlaylists($userId: ID!) {
+  playlists(userId: $userId) {
+    ...PlaylistFragment
+  }
+}
+
+query searchSongs($q: String!) {
+  searchSongs(q: $q) {
+    ...SongFragment
+  }
+}
