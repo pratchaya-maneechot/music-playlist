@@ -50,5 +50,10 @@ const restaurantResolver: Resolvers<IAppContext> = {
       return true;
     },
   },
+  Playlist: {
+    songs: async (args, params, ctx) => {
+      return await ctx.qrybus.execute(new qryDefs.GetSongsQuery(+args.id));
+    },
+  },
 };
 export default restaurantResolver;

@@ -59,7 +59,7 @@ export class SongService implements ISongService {
   }
 
   private mapToSong(item: any): Song {
-    const durationMillie = item.trackTimeMillie || 0;
+    const durationMillie = item.trackTimeMillis || 0;
     const minutes = Math.floor(durationMillie / 60000);
     const seconds = Math.floor((durationMillie % 60000) / 1000)
       .toString()

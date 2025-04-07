@@ -7,6 +7,7 @@ import {
   playlists,
   playlistSongs,
 } from '../../domain';
+import { eq } from 'drizzle-orm';
 
 @injectable()
 export class PlaylistRepository
@@ -16,9 +17,18 @@ export class PlaylistRepository
   constructor() {
     super(dbClient, playlists);
   }
+
+  override async delete(playlistId: number) {
+    await this.db
+      .delete(playlistSongs)
+      .where(eq(playlistSongs.playlistId, playlistId));
+    await super.delete(playlistId);
+  }
+
   async addSongToPlaylist(playlistId: number, songId: number) {
     await this.db.insert(playlistSongs).values({ playlistId, songId });
   }
+
   async removeSongFromPlaylist(playlistId: number, songId: number) {
     await this.db.insert(playlistSongs).values({ playlistId, songId });
   }

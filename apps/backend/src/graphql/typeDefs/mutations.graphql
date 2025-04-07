@@ -1,5 +1,5 @@
 type Mutation {
-  createPlaylist(name: String!, userId: ID!): Playlist!
+  createPlaylist(name: String!): Playlist!
   updatePlaylist(id: ID!, name: String): Playlist!
   deletePlaylist(id: ID!): Boolean!
 

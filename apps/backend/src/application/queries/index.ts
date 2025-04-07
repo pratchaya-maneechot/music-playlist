@@ -7,6 +7,8 @@ import { GetPlaylistQuery } from './playlist/defs/details';
 import { GetPlaylistQueryHandler } from './playlist/details.handler';
 import { SearchSongQuery } from './song/defs/search';
 import { SearchSongQueryHandler } from './song/search.handler';
+import { GetSongsQuery } from './song/defs/list';
+import { GetSongsQueryHandler } from './song/list.handler';
 
 export const configures = (bind: interfaces.Bind) => {
   bind<IQueryHandler<SearchSongQuery>>(TYPES.QueryHandler).to(
@@ -18,10 +20,14 @@ export const configures = (bind: interfaces.Bind) => {
   bind<IQueryHandler<GetPlaylistQuery>>(TYPES.QueryHandler).to(
     GetPlaylistQueryHandler
   );
+  bind<IQueryHandler<GetSongsQuery>>(TYPES.QueryHandler).to(
+    GetSongsQueryHandler
+  );
 };
 
 export const qryDefs = {
   GetPlaylistsQuery,
   GetPlaylistQuery,
   SearchSongQuery,
+  GetSongsQuery,
 };

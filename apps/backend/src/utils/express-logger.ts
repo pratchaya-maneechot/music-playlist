@@ -38,7 +38,6 @@ export function expressLogger(options: ExpressLoggerOptions = {}) {
       const requestEnd = performance.now();
       const duration = requestEnd - requestStart;
       const logLevel = duration > logSlowRequestsThreshold ? 'warn' : 'info';
-
       childLogger[logLevel](
         {
           method: req.method,
@@ -47,7 +46,7 @@ export function expressLogger(options: ExpressLoggerOptions = {}) {
           duration: `${duration.toFixed(2)}ms`,
           size: res.get('Content-Length') || undefined,
         },
-        `Request completed: ${requestMsg}`
+        `Request finished: ${requestMsg}`
       );
     });
 

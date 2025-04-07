@@ -124,39 +124,41 @@ export function ApolloLoggerPlugin<T extends Record<string, any>>(
             ? timings.requestEnd - timings.executionStart
             : undefined;
 
-          _logger.info(
-            {
-              operation: request.operationName,
-              status: context.response.http?.status,
-              timings: {
-                total: `${totalDuration.toFixed(2)}ms`,
-                parsing:
-                  timings.parsingStart && timings.validationStart
-                    ? `${(
-                        timings.validationStart - timings.parsingStart
-                      ).toFixed(2)}ms`
-                    : undefined,
-                validation:
-                  timings.validationStart && timings.executionStart
-                    ? `${(
-                        timings.executionStart - timings.validationStart
-                      ).toFixed(2)}ms`
-                    : undefined,
-                execution: executionDuration
-                  ? `${executionDuration.toFixed(2)}ms`
-                  : 'N/A',
-                resolvers: Object.fromEntries(
-                  Object.entries(timings.resolverTimings).map(
-                    ([key, value]) => [key, `${value.toFixed(2)}ms`]
-                  )
-                ),
+          if (!context.errors) {
+            _logger.info(
+              {
+                operation: request.operationName,
+                status: context.response.http?.status,
+                timings: {
+                  total: `${totalDuration.toFixed(2)}ms`,
+                  parsing:
+                    timings.parsingStart && timings.validationStart
+                      ? `${(
+                          timings.validationStart - timings.parsingStart
+                        ).toFixed(2)}ms`
+                      : undefined,
+                  validation:
+                    timings.validationStart && timings.executionStart
+                      ? `${(
+                          timings.executionStart - timings.validationStart
+                        ).toFixed(2)}ms`
+                      : undefined,
+                  execution: executionDuration
+                    ? `${executionDuration.toFixed(2)}ms`
+                    : 'N/A',
+                  resolvers: Object.fromEntries(
+                    Object.entries(timings.resolverTimings).map(
+                      ([key, value]) => [key, `${value.toFixed(2)}ms`]
+                    )
+                  ),
+                },
+                size: context.response.body
+                  ? JSON.stringify(context.response.body).length
+                  : undefined,
               },
-              size: context.response.body
-                ? JSON.stringify(context.response.body).length
-                : undefined,
-            },
-            `Completed ${request.operationName || 'Unnamed'}`
-          );
+              `Completed ${request.operationName || 'Unnamed'}`
+            );
+          }
         },
 
         async didEncounterErrors(context) {

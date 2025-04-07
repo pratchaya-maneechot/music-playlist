@@ -4,14 +4,12 @@ type User {
   email: String!
   createdAt: String!
   updatedAt: String!
-  playlists: [Playlist!]!
 }
 
 type Playlist {
   id: ID!
   name: String!
   userId: ID!
-  user: User!
   songs: [Song!]
   createdAt: String!
   updatedAt: String!
