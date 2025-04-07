@@ -1,7 +1,7 @@
-import { CodegenConfig, generate } from '@graphql-codegen/cli';
 import { PromiseExecutor } from '@nx/devkit';
-import { print } from 'graphql';
 import { ApolloCodeGenExecutorSchema } from './schema';
+import { CodegenConfig, generate } from '@graphql-codegen/cli';
+import { print } from 'graphql';
 
 const runExecutor: PromiseExecutor<ApolloCodeGenExecutorSchema> = async (
   options,
@@ -14,10 +14,19 @@ const runExecutor: PromiseExecutor<ApolloCodeGenExecutorSchema> = async (
     name: ctx.projectName,
     overwrite: true,
     schema: print(typeDefs),
+    documents: options.documentPath,
     generates: {
       [generates]: {
-        plugins: ['typescript', 'typescript-resolvers'],
-        config: { federation: true },
+        plugins: [
+          'typescript',
+          'typescript-operations',
+          'typescript-react-apollo',
+        ],
+        config: {
+          withHooks: true,
+          withRefetchFn: true,
+          withMutationFn: true,
+        },
       },
     },
   };

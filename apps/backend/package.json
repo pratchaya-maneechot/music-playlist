@@ -70,7 +70,7 @@
           "passWithNoTests": true
         }
       },
-      "code-gen": {
+      "codegen": {
         "executor": "@music-playlist/code-generator:server",
         "options": {
           "schemaPath": "apps/backend/src/graphql/typeDefs",

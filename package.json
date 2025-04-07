@@ -5,6 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@apollo/client-integration-nextjs": "^0.12.0",
     "@apollo/server": "^4.11.3",
     "@graphql-tools/load-files": "^7.0.1",
     "@nx/devkit": "20.7.1",

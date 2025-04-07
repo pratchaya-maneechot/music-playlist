@@ -1,15 +1,21 @@
 {
   "$schema": "https://json-schema.org/schema",
   "version": 2,
-  "title": "Server executor",
-  "description": "",
+  "title": "GraphQL Code Generator Executor Schema",
+  "description": "Configuration options for generating TypeScript types, operations, and resolvers from a GraphQL schema.",
   "type": "object",
   "properties": {
+    "documentPath": {
+      "type": "string",
+      "description": "Path to GraphQL documents (queries, mutations, fragments). Optional - if provided, generates operations and hooks."
+    },
     "schemaPath": {
-      "type": "string"
+      "type": "string",
+      "description": "Path to the GraphQL schema file (required)."
     },
     "generatedPath": {
-      "type": "string"
+      "type": "string",
+      "description": "Base directory path where generated files (types.ts, operations.ts, resolvers.ts) will be saved (required)."
     }
   },
   "required": ["schemaPath", "generatedPath"]

@@ -3,7 +3,12 @@
     "server": {
       "implementation": "./dist/executors/apollo/server",
       "schema": "./dist/executors/apollo/schema.json",
-      "description": "server executor"
+      "description": "apollo server code gen executor"
+    },
+    "client": {
+      "implementation": "./dist/executors/apollo/client",
+      "schema": "./dist/executors/apollo/schema.json",
+      "description": "apollo client code gen executor"
     }
   }
 }

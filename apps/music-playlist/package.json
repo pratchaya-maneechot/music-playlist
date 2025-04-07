@@ -3,7 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "nx": {
-    "name": "music-playlist"
+    "name": "music-playlist",
+    "targets": {
+      "codegen": {
+        "executor": "@music-playlist/code-generator:client",
+        "options": {
+          "schemaPath": "apps/backend/src/graphql/typeDefs",
+          "generatedPath": "apps/music-playlist/src/graphql/generated.ts",
+          "documentPath": "apps/music-playlist/src/graphql/document/**/*.gql"
+        }
+      }
+    }
   },
   "dependencies": {
     "next": "~15.2.4",
