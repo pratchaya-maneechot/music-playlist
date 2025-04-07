@@ -1,5 +1,6 @@
 import MainLayout from '@/layouts/MainLayout';
 import './global.css';
+import AppProvider from './provider';
 
 export default async function RootLayout({
   children,
@@ -9,7 +10,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MainLayout>{children}</MainLayout>
+        <AppProvider>
+          <MainLayout>{children}</MainLayout>
+        </AppProvider>
       </body>
     </html>
   );

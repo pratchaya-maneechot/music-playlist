@@ -6,5 +6,5 @@ export const profile: User = {
   id: '1',
   playlists: [],
   updatedAt: 'updatedAt',
-  username: 'updatedAt',
+  username: 'Pratchaya Maneechot',
 };
