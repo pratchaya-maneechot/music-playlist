@@ -1,4 +1,3 @@
-import { z } from 'zod';
-import { PlaylistSchema } from '../schemas/playlist';
+import { Playlist } from '@/graphql/generated';
 
-export type Playlist = z.infer<typeof PlaylistSchema>;
+export type IPlaylist = Playlist;

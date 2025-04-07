@@ -7,6 +7,9 @@ query getProfile {
 query getPlaylist($id: ID!) {
   playlist(id: $id) {
     ...PlaylistFragment
+    songs {
+      ...SongFragment
+    }
   }
 }
 

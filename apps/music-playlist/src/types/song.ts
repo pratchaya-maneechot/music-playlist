@@ -1,4 +1,3 @@
-import { z } from 'zod';
-import { SongSchema } from '../schemas/song';
+import { Song } from '@/graphql/generated';
 
-export type Song = z.infer<typeof SongSchema>;
+export type ISong = Song;

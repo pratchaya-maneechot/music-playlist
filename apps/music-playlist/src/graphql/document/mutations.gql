@@ -1,5 +1,5 @@
-mutation createPlaylist($name: String!, $userId: ID!) {
-  createPlaylist(name: $name, userId: $userId) {
+mutation createPlaylist($name: String!) {
+  createPlaylist(name: $name) {
     ...PlaylistFragment
   }
 }
