@@ -17,14 +17,16 @@ export default function MainLayout({ children }: PropsWithChildren) {
     useMainLayout();
   return (
     <div className="flex h-screen bg-[#121212]">
-      <Sidebar
-        loading={loading}
-        deleting={deleting}
-        submitting={submitting}
-        onNewPlaylist={onCreate}
-        onDeletePlaylist={onDelete}
-        playlists={playlists}
-      />
+      {!!playlists.length && (
+        <Sidebar
+          loading={loading}
+          deleting={deleting}
+          submitting={submitting}
+          onNewPlaylist={onCreate}
+          onDeletePlaylist={onDelete}
+          playlists={playlists}
+        />
+      )}
       <div className="flex-1 overflow-y-auto">{children}</div>
     </div>
   );
