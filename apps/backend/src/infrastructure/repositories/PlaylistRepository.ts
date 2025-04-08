@@ -7,7 +7,9 @@ import {
   playlists,
   playlistSongs,
 } from '../../domain';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
+import { InfraException } from '../../exceptions';
+import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export class PlaylistRepository
@@ -26,10 +28,30 @@ export class PlaylistRepository
   }
 
   async addSongToPlaylist(playlistId: number, songId: number) {
+    const prev = await this.db.$count(
+      playlistSongs,
+      and(
+        eq(playlistSongs.playlistId, playlistId),
+        eq(playlistSongs.songId, songId)
+      )
+    );
+    if (prev)
+      throw new InfraException(
+        StatusCodes.CONFLICT,
+        `This song is already in the playlist.`
+      );
+
     await this.db.insert(playlistSongs).values({ playlistId, songId });
   }
 
   async removeSongFromPlaylist(playlistId: number, songId: number) {
-    await this.db.insert(playlistSongs).values({ playlistId, songId });
+    await this.db
+      .delete(playlistSongs)
+      .where(
+        and(
+          eq(playlistSongs.playlistId, playlistId),
+          eq(playlistSongs.songId, songId)
+        )
+      );
   }
 }

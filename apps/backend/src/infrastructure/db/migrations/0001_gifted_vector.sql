@@ -1,0 +1,1 @@
+ALTER TABLE "playlist_songs" ADD CONSTRAINT "unique_playlist_song" UNIQUE("playlist_id","song_id");

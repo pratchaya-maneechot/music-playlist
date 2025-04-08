@@ -4,6 +4,7 @@ import {
   varchar,
   timestamp,
   integer,
+  unique,
 } from 'drizzle-orm/pg-core';
 
 export const playlists = pgTable('playlists', {
@@ -24,13 +25,22 @@ export const songs = pgTable('songs', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
-export const playlistSongs = pgTable('playlist_songs', {
-  id: serial('id').primaryKey(),
-  playlistId: integer('playlist_id')
-    .notNull()
-    .references(() => playlists.id),
-  songId: integer('song_id')
-    .notNull()
-    .references(() => songs.id),
-  dateAdded: timestamp('date_added').defaultNow().notNull(),
-});
+export const playlistSongs = pgTable(
+  'playlist_songs',
+  {
+    id: serial('id').primaryKey(),
+    playlistId: integer('playlist_id')
+      .notNull()
+      .references(() => playlists.id),
+    songId: integer('song_id')
+      .notNull()
+      .references(() => songs.id),
+    dateAdded: timestamp('date_added').defaultNow().notNull(),
+  },
+  (table) => ({
+    uniquePlaylistSong: unique('unique_playlist_song').on(
+      table.playlistId,
+      table.songId
+    ),
+  })
+);
