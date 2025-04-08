@@ -1,3 +1,4 @@
+import LoadingScreen, { LoadingIcon } from '@/components/LoadingScreen';
 import {
   GetPlaylistDocument,
   useAddSongToPlaylistMutation,
@@ -57,7 +58,7 @@ export default function PlaylistSearchBar({ playlistId }: Props) {
         )}
       </div>
       {searchTerm && loading ? (
-        <>Loading...</>
+        <LoadingScreen />
       ) : (
         <div>
           {songs.length === 0 && debouncedQuery
@@ -85,7 +86,11 @@ export default function PlaylistSearchBar({ playlistId }: Props) {
                     onClick={() => onAddToPlaylist(song.id)}
                     className="border border-gray-400 text-gray-400 px-4 py-1 rounded hover:bg-gray-600"
                   >
-                    {submitting && addSongId === song.id ? 'loading' : 'Add'}
+                    {submitting && addSongId === song.id ? (
+                      <LoadingIcon />
+                    ) : (
+                      'Add'
+                    )}
                   </button>
                 </div>
               ))}

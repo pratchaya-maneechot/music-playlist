@@ -5,10 +5,11 @@ export const metadata = {
 };
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
-export default function page({ params }: Props) {
-  return <PlaylistView id={params.id} />;
+export default async function page({ params }: Props) {
+  const id = (await params).id;
+  return <PlaylistView id={id} />;
 }

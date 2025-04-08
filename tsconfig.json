@@ -10,9 +10,6 @@
       "path": "./apps/backend"
     },
     {
-      "path": "./tools/genrator"
-    },
-    {
       "path": "./tools/code-generator"
     }
   ]

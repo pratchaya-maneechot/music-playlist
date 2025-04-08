@@ -1,5 +1,6 @@
 'use client';
 
+import LoadingScreen from '@/components/LoadingScreen';
 import { AuthContext } from './auth-context';
 
 // ----------------------------------------------------------------------
@@ -11,7 +12,7 @@ type Props = {
 export function AuthConsumer({ children }: Props) {
   return (
     <AuthContext.Consumer>
-      {(auth) => (auth.loading ? <>Loading...</> : children)}
+      {(auth) => (auth.loading ? <LoadingScreen /> : children)}
     </AuthContext.Consumer>
   );
 }

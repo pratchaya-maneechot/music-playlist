@@ -7,7 +7,9 @@ import {
   useDeletePlaylistMutation,
   useGetPlaylistsQuery,
 } from '@/graphql/generated';
+import { paths } from '@/routes/paths';
 import { IPlaylist } from '@/types/playlist';
+import { useRouter } from 'next/navigation';
 import React, { PropsWithChildren } from 'react';
 
 export default function MainLayout({ children }: PropsWithChildren) {
@@ -30,6 +32,7 @@ export default function MainLayout({ children }: PropsWithChildren) {
 
 function useMainLayout() {
   const { user } = useAuthContext();
+  const router = useRouter();
   const [callDeletePlaylist, { loading: deleting }] =
     useDeletePlaylistMutation();
   const [callCreatePlaylist, { loading: submitting }] =
@@ -47,10 +50,14 @@ function useMainLayout() {
   ];
 
   const onCreate = async () => {
-    await callCreatePlaylist({
+    const { data: playlistCreated } = await callCreatePlaylist({
       variables: { name: `My Playlist #${(data?.playlists?.length ?? 0) + 1}` },
       refetchQueries: refetchPlaylistQueries,
     });
+
+    if (playlistCreated?.createPlaylist.id) {
+      router.push(paths.playlist.detail(playlistCreated.createPlaylist.id));
+    }
   };
 
   const onDelete = (item: IPlaylist) => {
@@ -59,6 +66,7 @@ function useMainLayout() {
         variables: { id: item.id },
         refetchQueries: refetchPlaylistQueries,
       });
+      router.push(paths.home);
     }
   };
 

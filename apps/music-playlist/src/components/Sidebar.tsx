@@ -2,6 +2,7 @@ import { paths } from '@/routes/paths';
 import { IPlaylist } from '@/types/playlist';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import LoadingScreen, { LoadingIcon } from './LoadingScreen';
 
 type SidebarProps = {
   playlists: IPlaylist[];
@@ -25,24 +26,26 @@ export default function Sidebar({
     <div className="w-64 h-screen bg-[#121212] text-white p-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Your Library</h2>
-        <button
-          className="text-gray-400 hover:text-white py-1 px-3 bg-[#282828] rounded-full"
-          onClick={onNewPlaylist}
-        >
-          {submitting ? 'loading' : '+ Create'}
-        </button>
+        {!!playlists.length && (
+          <button
+            className="text-gray-400 hover:text-white py-1 px-3 bg-[#282828] rounded-full"
+            onClick={onNewPlaylist}
+          >
+            {submitting ? <LoadingIcon /> : '+ Create'}
+          </button>
+        )}
       </div>
       <div className="space-y-2">
         {loading ? (
-          <> Loading.. </>
-        ) : playlists.length ? (
+          <LoadingScreen />
+        ) : (
           playlists.map((pl) => (
             <div
               key={pl.id}
               className="flex justify-between items-center p-2 bg-[#1a1a1a] rounded"
             >
               <div
-                className="flex items-center space-x-2 cursor-pointer"
+                className="flex items-center space-x-2 cursor-pointer w-full"
                 onClick={() => router.push(paths.playlist.detail(pl.id))}
               >
                 <svg
@@ -62,20 +65,15 @@ export default function Sidebar({
                     onDeletePlaylist(pl);
                   }}
                 >
-                  {deleting && deleteItemId === pl.id ? 'loading' : 'Del.'}
+                  {deleting && deleteItemId === pl.id ? (
+                    <LoadingIcon />
+                  ) : (
+                    'Del.'
+                  )}
                 </button>
               )}
             </div>
           ))
-        ) : (
-          onNewPlaylist && (
-            <button
-              className="text-gray-600 hover:text-gray-900 py-1 px-3 bg-white rounded"
-              onClick={onNewPlaylist}
-            >
-              {submitting ? 'loading' : '+ New Playlist'}
-            </button>
-          )
         )}
       </div>
     </div>
