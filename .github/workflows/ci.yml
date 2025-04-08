@@ -14,7 +14,7 @@ jobs:
   main:
     env:
       DB_HOST: localhost
-      DB_USERNAME: root
+      DB_USERNAME: postgres
       DB_PORT: 5432
 
     runs-on: ubuntu-latest
