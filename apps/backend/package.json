@@ -107,24 +107,5 @@
         "command": "docker build -f apps/backend/Dockerfile . -t backend"
       }
     }
-  },
-  "dependencies": {
-    "@apollo/client-integration-nextjs": "^0.12.0",
-    "@apollo/server": "^4.11.3",
-    "@graphql-tools/load-files": "^7.0.1",
-    "@graphql-tools/merge": "^9.0.24",
-    "cors": "^2.8.5",
-    "drizzle-kit": "^0.30.6",
-    "drizzle-orm": "^0.41.0",
-    "express": "^4.21.2",
-    "express-rate-limit": "^7.5.0",
-    "graphql": "^16.10.0",
-    "http-status-codes": "^2.3.0",
-    "inversify": "^6.2.2",
-    "pino": "^9.6.0",
-    "pino-pretty": "^13.0.0",
-    "postgres": "^3.4.5",
-    "reflect-metadata": "^0.2.2",
-    "zod": "^3.24.2"
   }
 }
