@@ -13,5 +13,5 @@ COPY apps/backend/ apps/backend/
 RUN npm ci --omit=dev --legacy-peer-deps
 
 RUN chown -R backend:backend .
-
+EXPOSE 3000
 CMD [ "node", "apps/backend/dist/main.js" ]

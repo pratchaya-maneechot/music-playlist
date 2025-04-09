@@ -23,7 +23,7 @@ cd <repository-name>
 npm install
 ```
 
-### 3. Setup Environment Variables
+### 3. Setup Dev Environment
 
 ```bash
 cp .env.sample .env
@@ -31,7 +31,7 @@ cp apps/backend/.env.sample apps/backend/.env.serve
 cp apps/music-playlist/.env.sample apps/music-playlist/.env.dev
 ```
 
-### 4. Run Docker Compose
+### 4. Run DB on Docker Compose
 
 Start the database in `docker-compose.yml`:
 
@@ -39,29 +39,31 @@ Start the database in `docker-compose.yml`:
 docker compose up db -d
 ```
 
-### 5. Run Database Initialization and Migrations
+### 5. Run Database Initialization
 
 Initialize the database and run migrations:
 
 ```bash
+# new database
 npx nx run-many -t db:init
+# new table
 npx nx run-many -t db:migrate
 ```
 
-### 6. Generate GraphQL Code
+### 6. Generate Code
 
-Generate TypeScript types and resolvers for GraphQL:
+Generate TypeScript types, operators and resolvers for GraphQL:
 
 ```bash
 npx nx run-many -t codegen
 ```
 
-### 7. Start the Applications
+### 7. Start Dev
 
-- **Backend**: `npx nx serve backend`
-- **Frontend**: `npx nx dev music-playlist`
+1. **Backend**: `npx nx serve backend`
+2. **Frontend**: `npx nx dev music-playlist`
 
-### 8. Run Tests (Backend)
+### 8. Run Tests
 
 To execute the unit and integration tests for the backend, use the following Nx command:
 
@@ -74,13 +76,16 @@ npx nx test backend
 To deploy the backend and frontend using Docker:
 
 ```bash
-npx nx docker-build backend
-npx nx docker-build music-playlist
-
+# setup env for build
+cp apps/backend/.env.sample apps/backend/.env.build
+cp apps/music-playlist/.env.sample apps/music-playlist/.env.build
+# build image Dockerfile
+npx nx run-many -t docker-build
+# Run docker application
 docker compose up -d
 ```
 
-The website started at http://localhost:8080
+The website started at http://localhost:4200
 
 ## Project Structure
 

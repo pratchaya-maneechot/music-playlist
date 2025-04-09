@@ -13,10 +13,8 @@ services:
   website:
     container_name: website
     image: music-playlist
-    depends_on:
-      - backend
     ports:
-      - 8080:8080
+      - 4200:4200
   backend:
     container_name: backend
     image: backend
@@ -27,4 +25,4 @@ services:
       - DB_HOST=db
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
-      - CORS=http://localhost:8080
+      - CORS=http://localhost:4200
