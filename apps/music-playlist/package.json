@@ -12,6 +12,12 @@
           "generatedPath": "apps/music-playlist/src/graphql/generated.ts",
           "documentPath": "apps/music-playlist/src/graphql/document/**/*.gql"
         }
+      },
+      "docker-build": {
+        "dependsOn": [
+          "build"
+        ],
+        "command": "docker build -f apps/music-playlist/Dockerfile . -t music-playlist"
       }
     }
   },

@@ -10,3 +10,21 @@ services:
       - ${DB_PORT}:5432
     volumes:
       - ./tmp/postgres:/var/lib/postgresql/data
+  website:
+    container_name: website
+    image: music-playlist
+    depends_on:
+      - backend
+    ports:
+      - 8080:8080
+  backend:
+    container_name: backend
+    image: backend
+    ports:
+      - 3000:3000
+    environment:
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=db
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - CORS=http://localhost:8080
