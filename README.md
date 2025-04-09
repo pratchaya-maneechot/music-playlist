@@ -1,82 +1,133 @@
-# MusicPlaylist
+# Music Playlist Project
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This repository contains a full-stack application for managing music playlists. It consists of a backend service (`app/backend`) built with Node.js and a frontend website (`app/music-playlist`) built with Next.js. The project uses Nx for monorepo management, Drizzle ORM for database interactions, and GraphQL for API communication.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Prerequisites
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- Docker (for running services like the database)
+- Node.js (v20 recommended)
+- npm (v10 or higher recommended)
 
-## Finish your CI setup
+## Getting Started
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/0qfqklHIiF)
+### 1. Clone the Repository
 
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx dev music-playlist
+```bash
+git clone <repository-url>
+cd <repository-name>
 ```
 
-To create a production bundle:
+### 2. Install Dependencies
 
-```sh
-npx nx build music-playlist
+```bash
+npm install
 ```
 
-To see all available targets to run for a project, run:
+### 3. Setup Environment Variables
 
-```sh
-npx nx show project music-playlist
+```bash
+cp .env.sample .env
+cp apps/backend/.env.sample apps/backend/.env.serve
+cp apps/music-playlist/.env.sample apps/music-playlist/.env.dev
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### 4. Run Docker Compose
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Start the database in `docker-compose.yml`:
 
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/next:app demo
+```bash
+docker compose up db -d
 ```
 
-To generate a new library, use:
+### 5. Run Database Initialization and Migrations
 
-```sh
-npx nx g @nx/react:lib mylib
+Initialize the database and run migrations:
+
+```bash
+npx nx run-many -t db:init
+npx nx run-many -t db:migrate
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### 6. Generate GraphQL Code
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Generate TypeScript types and resolvers for GraphQL:
 
+```bash
+npx nx run-many -t codegen
+```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 7. Start the Applications
 
-## Install Nx Console
+- **Backend**: `npx nx serve backend`
+- **Frontend**: `npx nx dev music-playlist`
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+### 8. Run Tests (Backend)
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+To execute the unit and integration tests for the backend, use the following Nx command:
 
-## Useful links
+```bash
+npx nx test backend
+```
 
-Learn more:
+### 9. Deploy with docker
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/next?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+To deploy the backend and frontend using Docker:
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+npx nx docker-build backend
+npx nx docker-build music-playlist
+
+docker compose up -d
+```
+
+The website started at http://localhost:8080
+
+## Project Structure
+
+### Backend (`app/backend`)
+
+The backend is a Node.js application using Express, GraphQL, and Drizzle ORM.
+
+```
+app/backend/
+├── _mock/                # Mock data for testing
+├── application/          # Command and query handlers
+│   ├── commands/         # Business logic for playlist and song operations
+│   └── queries/          # Read operations for playlists and songs
+├── assets/               # Static assets
+├── config/               # Configuration files
+├── domain/               # Core business logic and models
+│   ├── core/             # Interfaces for commands, queries, and repositories
+│   ├── repositories/     # Data access interfaces
+│   └── services/         # Business services
+├── exceptions/           # Custom exceptions
+├── graphql/              # GraphQL schema, resolvers, and types
+├── infrastructure/       # Implementations (DB, command/query buses, etc.)
+│   ├── db/               # Database client, migrations, and seeds
+│   ├── repositories/     # Repository implementations
+│   └── services/         # Service implementations
+├── testing/              # Unit and integration tests
+└── utils/                # Utility functions (e.g., logging)
+```
+
+### Frontend (`app/music-playlist`)
+
+The frontend is a Next.js application for the music playlist website.
+
+```
+app/music-playlist/
+├── app/                  # Next.js app directory (pages, layouts)
+│   └── playlists/[id]/   # Dynamic playlist page
+├── auth/                 # Authentication logic and hooks
+├── components/           # Reusable UI components
+├── graphql/              # Apollo Client setup and GraphQL documents
+├── hooks/                # Custom React hooks
+├── layouts/              # Page layouts
+├── routes/               # Route definitions
+├── sections/             # Feature-specific UI sections
+│   ├── error/            # Error views (403, 500, etc.)
+│   ├── home/             # Home page content
+│   └── playlist/         # Playlist-related UI components
+├── types/                # TypeScript type definitions
+└── utils/                # Utility functions
+```
